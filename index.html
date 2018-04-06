@@ -1,0 +1,96 @@
+<html ng-app="todoapp">
+    <head>
+        <title> ToDo App </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+<body>
+    <div class="container" ng-controller="todocontroller" ng-init="fetchdata()">
+      <h1>A ToDo App</h1>
+
+      <div class="well well-lg">
+            <form class="form-horizontal">
+                <div class="form-group">
+                  <label  class="col-sm-2 control-label">Task Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Task Name" ng-model="newtask.name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label  class="col-sm-2 control-label">Task Description</label>
+                  <div class="col-sm-10">
+                    <input type="text" 
+                           class="form-control"  
+                           placeholder="Task Description" 
+                           ng-model="newtask.description">
+                  </div>
+                </div>
+                  <div class="form-group">
+                  <label  class="col-sm-2 control-label">Task Date</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control"  placeholder="date" ng-model="newtask.date">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-default" 
+                            ng-click="addnewtask(newtask)" 
+                            ng-if= "showaddbutton">Add Task
+                    </button>
+                    <button class="btn btn-default" 
+                            ng-if= "!showaddbutton" 
+                            ng-click="savedata(newtask)">Save Data
+                    </button>
+                  </div>
+                </div>
+          </form>
+      </div>
+
+      <!--Display the content-->
+
+<div class="panel-group">
+    <div class="panel panel-primary">
+                <div class="panel-heading" >
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" >Task Details</a>
+                    </h4>
+                </div>
+        <div id="collapse1" class="panel-collapse ">
+          <div class="panel-body table-responsive ">
+              <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Task Name</th>
+                        <th>Task Description</th>
+                        <th>Task Date</th>
+                        <th> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="t in taskarray track by $index">
+                        <td>{{t.name}}</td>
+                        <td>{{t.description}}</td>
+                        <td>{{t.date | date}}</td>
+                        <td><i class="glyphicon glyphicon-edit" 
+                               ng-click="edittask(this)">  
+                               &nbsp;
+                            </i>
+                            <i class="glyphicon glyphicon-remove" 
+                                ng-click="removetask(this)">
+                            </i>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+              </table>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+    </div>
+</body>
+</html>
